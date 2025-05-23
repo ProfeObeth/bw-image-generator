@@ -1,0 +1,25 @@
+<div class="controls">
+  <textarea id="promptInput" placeholder="Un gato negro en un árbol..."></textarea>
+  <div class="settings">
+    <select id="styleSelect">
+      <option value="high_contrast">Alto contraste</option>
+      <option value="pencil_sketch">Estilo dibujo</option>
+      <option value="noir">Estilo noir</option>
+    </select>
+    <button id="generateBtn">Generar</button>
+  </div>
+</div>
+
+<div id="resultContainer">
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Creando tu obra de arte...</p>
+  </div>
+  <div class="image-wrapper">
+    <img id="generatedImage" crossorigin="anonymous">
+    <div class="actions">
+      <button id="downloadBtn">Descargar</button>
+      <button id="newVariationBtn">Nueva variación</button>
+    </div>
+  </div>
+</div>
