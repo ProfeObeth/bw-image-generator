@@ -1,25 +1,53 @@
-<div class="controls">
-  <textarea id="promptInput" placeholder="Un gato negro en un árbol..."></textarea>
-  <div class="settings">
-    <select id="styleSelect">
-      <option value="high_contrast">Alto contraste</option>
-      <option value="pencil_sketch">Estilo dibujo</option>
-      <option value="noir">Estilo noir</option>
-    </select>
-    <button id="generateBtn">Generar</button>
-  </div>
-</div>
-
-<div id="resultContainer">
-  <div class="loading">
-    <div class="spinner"></div>
-    <p>Creando tu obra de arte...</p>
-  </div>
-  <div class="image-wrapper">
-    <img id="generatedImage" crossorigin="anonymous">
-    <div class="actions">
-      <button id="downloadBtn">Descargar</button>
-      <button id="newVariationBtn">Nueva variación</button>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador IA B/N</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Generador de Imágenes B/N</h1>
+        <textarea id="prompt" placeholder="Ej: 'Un gato en un árbol al atardecer'..."></textarea>
+        <button onclick="generateImage()">✨ Generar Imagen</button>
+        <div class="result">
+            <img id="image" alt="Imagen generada por IA">
+        </div>
     </div>
-  </div>
-</div>
+
+    <script>
+        async function generateImage() {
+            const prompt = document.getElementById('prompt').value;
+            const imageElement = document.getElementById('image');
+            
+            if (!prompt) {
+                alert("¡Describe la imagen que deseas!");
+                return;
+            }
+
+            imageElement.src = "";
+            document.body.style.cursor = 'wait';
+
+            try {
+                // API gratuita de DeepAI (no requiere clave)
+                const response = await fetch("https://api.deepai.org/api/stable-diffusion", {
+                    method: "POST",
+                    headers: { "api-key": "quickstart-QUdJIGlzIGNvbWluZy4uLi4K" },
+                    body: new URLSearchParams({
+                        text: `${prompt}, black and white, monochrome, high contrast`
+                    })
+                });
+                
+                const data = await response.json();
+                imageElement.src = data.output_url;
+                
+            } catch (error) {
+                alert("Error al generar. Intenta con otra descripción.");
+                console.error(error);
+            } finally {
+                document.body.style.cursor = 'default';
+            }
+        }
+    </script>
+</body>
+</html>
